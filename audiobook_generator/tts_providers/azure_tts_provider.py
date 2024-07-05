@@ -6,11 +6,13 @@ import os
 from datetime import datetime, timedelta
 from time import sleep
 import requests
-
+import dotenv
 from audiobook_generator.core.audio_tags import AudioTags
 from audiobook_generator.config.general_config import GeneralConfig
 from audiobook_generator.core.utils import split_text, set_audio_tags
 from audiobook_generator.tts_providers.base_tts_provider import BaseTTSProvider
+
+dotenv.load_dotenv()
 
 logger = logging.getLogger(__name__)
 
@@ -32,8 +34,8 @@ class AzureTTSProvider(BaseTTSProvider):
         self.token_expiry_time = datetime.utcnow()
         super().__init__(config)
 
-        subscription_key = os.environ.get("MS_TTS_KEY")
-        region = os.environ.get("MS_TTS_REGION")
+        subscription_key = os.getenv("MS_TTS_KEY")
+        region = os.getenv("MS_TTS_REGION")
 
         if not subscription_key or not region:
             raise ValueError(
