@@ -23,6 +23,7 @@ venv/
 Thumbs.db
 
 .vscode
+.env
 
 # audio files
 audiobook_output/

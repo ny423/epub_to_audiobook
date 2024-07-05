@@ -42,8 +42,6 @@ class AudiobookGenerator:
             # Filter out empty or very short chapters
             chapters = [(title, text) for title, text in chapters if text.strip()]
 
-            logger.info(f"Chapters count: {len(chapters)}.")
-
             # Check chapter start and end args
             if self.config.chapter_start < 1 or self.config.chapter_start > len(chapters):
                 raise ValueError(
@@ -59,7 +57,8 @@ class AudiobookGenerator:
                 raise ValueError(
                     f"Chapter start index {self.config.chapter_start} is larger than chapter end index {self.config.chapter_end}. Check your input."
                 )
-
+            chapters = chapters[self.config.chapter_start - 1:self.config.chapter_end]
+            logger.info(f"Chapters count: {len(chapters)}.")
             logger.info(f"Converting chapters from {self.config.chapter_start} to {self.config.chapter_end}.")
 
             # Initialize total_characters to 0
