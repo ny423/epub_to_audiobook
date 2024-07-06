@@ -15,7 +15,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def handle_args():
+def handle_args() -> GeneralConfig:
     parser = argparse.ArgumentParser(description="Convert text book to audiobook")
     parser.add_argument("input_file", help="Path to the EPUB file")
     parser.add_argument("output_folder", help="Path to the output folder")
@@ -133,7 +133,7 @@ def handle_args():
         help="Break duration in milliseconds for the different paragraphs or sections (default: 1250, means 1.25 s). Valid values range from 0 to 5000 milliseconds for Azure TTS.",
     )
 
-    args = parser.parse_args()
+    args: argparse.Namespace = parser.parse_args()
     return GeneralConfig(args)
 
 
